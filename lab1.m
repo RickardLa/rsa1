@@ -272,5 +272,66 @@ clf
 clear all
 close all
 
+% x[n] = x[n − 1] + w[n] 
+
+N = 256;
+K = N;
+w = randn(N,K);
+x=filter(1,[1 -1],w);
+
+% plot(x)
+% xlabel('n')
+% ylabel('X[n]')
+% title('Joint distribution of N realizations')
+%histogram(x)
+%plot(variance)
+
+n1 = [10 50 100 200 ];
+n2 = [9 49 99 199 ];
+n11 = [50 100 200];
+n22 = [40 90 190];
+
+
+% x1 = [x(:,n1(1)) x(:,n2(1))]; 
+% scatterplot(x1)
+% title('(n_1,n_2) = (10,9)')
+% xlabel('X[n_1]')
+% ylabel('X[n_2]')
+% 
+% x1 = [x(:,n1(2)) x(:,n2(2))]; 
+% scatterplot(x1)
+% title('(n_1,n_2) = (50,49)')
+% xlabel('X[n_1]')
+% ylabel('X[n_2]')
+% 
+% x1 = [x(:,n1(3)) x(:,n2(3))]; 
+% scatterplot(x1)
+% title('(n_1,n_2) = (100,99)')
+% xlabel('X[n_1]')
+% ylabel('X[n_2]')
+% 
+% x1 = [x(:,n1(4)) x(:,n2(4))]; 
+% scatterplot(x1)
+% title('(n_1,n_2) = (200,199)')
+% xlabel('X[n_1]')
+% ylabel('X[n_2]')
+%     
+x1 = [x(:,n11(1)) x(:,n22(1))]; 
+scatterplot(x1)
+title('(n_1,n_2) = (50,40)')
+xlabel('X[n_1]')
+ylabel('X[n_2]')
+
+x1 = [x(:,n11(2)) x(:,n22(2))]; 
+scatterplot(x1)
+title('(n_1,n_2) = (100,90)')
+xlabel('X[n_1]')
+ylabel('X[n_2]')
+
+x1 = [x(:,n11(3)) x(:,n22(3))]; 
+scatterplot(x1)
+title('(n_1,n_2) = (200,190)')
+xlabel('X[n_1]')
+ylabel('X[n_2]')
 
 
