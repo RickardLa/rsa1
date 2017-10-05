@@ -266,7 +266,7 @@ sum = sum / K;
 % UNCORRELATED!!!!!!!!!!!!!!
 
 
-%% 5 
+%% 5.4 
 clc
 clf
 clear all
@@ -291,7 +291,9 @@ n2 = [9 49 99 199 ];
 n11 = [50 100 200];
 n22 = [40 90 190];
 
-
+%%%% Had problems assigning labels/titles when plotting in a for-loop so we
+%%%% did it manually instead.. Not so pretty 
+ 
 % x1 = [x(:,n1(1)) x(:,n2(1))]; 
 % scatterplot(x1)
 % title('(n_1,n_2) = (10,9)')
@@ -316,6 +318,103 @@ n22 = [40 90 190];
 % xlabel('X[n_1]')
 % ylabel('X[n_2]')
 %     
+% x1 = [x(:,n11(1)) x(:,n22(1))]; 
+% scatterplot(x1)
+% title('(n_1,n_2) = (50,40)')
+% xlabel('X[n_1]')
+% ylabel('X[n_2]')
+% 
+% x1 = [x(:,n11(2)) x(:,n22(2))]; 
+% scatterplot(x1)
+% title('(n_1,n_2) = (100,90)')
+% xlabel('X[n_1]')
+% ylabel('X[n_2]')
+% 
+% x1 = [x(:,n11(3)) x(:,n22(3))]; 
+% scatterplot(x1)
+% title('(n_1,n_2) = (200,190)')
+% xlabel('X[n_1]')
+% ylabel('X[n_2]')
+
+%% 5.5
+clc
+clf
+clear all
+close all
+
+N = 256;
+K = N;
+w = randn(N,K);
+x=filter(1,[1 -1],w);
+
+
+sum = 0;
+sum1 = zeros(1,N);
+for n=2:N
+    for i=1:N
+        product = x(i,n).*x(i,n-1);
+        sum = (sum + product)/N;  
+    end
+    sum1(n) = sum;
+end
+sum1(sum1==0) = []; 
+n=2:N;
+plot(n,sum1)
+xlabel('n')
+ylabel('$$\hat{r}(n,n-1)$$','Interpreter','Latex')
+title('Sample auto-correlation')
+hold on
+rTheory = (n-1)/N;
+plot(n,rTheory)
+
+%% 6.3
+clc
+clf
+clear all
+close all
+
+
+N = 256;
+K = N;
+w = randn(N,K);
+x=filter(1,[1 -0.9],w);
+
+% plot(x)
+% axis([0 256 -10 10])
+% xlabel('n')
+% ylabel('X[n]')
+% title('Joint distribution of N realizations')
+
+n1 = [10 50 100 200];
+n2 = [9 49 99 199];
+n11 = [50 100 200]; 
+n22 = [40 90 190];
+
+
+x1 = [x(:,n1(1)) x(:,n2(1))]; 
+scatterplot(x1)
+title('(n_1,n_2) = (10,9)')
+xlabel('X[n_1]')
+ylabel('X[n_2]')
+
+x1 = [x(:,n1(2)) x(:,n2(2))]; 
+scatterplot(x1)
+title('(n_1,n_2) = (50,49)')
+xlabel('X[n_1]')
+ylabel('X[n_2]')
+
+x1 = [x(:,n1(3)) x(:,n2(3))]; 
+scatterplot(x1)
+title('(n_1,n_2) = (100,99)')
+xlabel('X[n_1]')
+ylabel('X[n_2]')
+
+x1 = [x(:,n1(4)) x(:,n2(4))]; 
+scatterplot(x1)
+title('(n_1,n_2) = (200,199)')
+xlabel('X[n_1]')
+ylabel('X[n_2]')
+
 x1 = [x(:,n11(1)) x(:,n22(1))]; 
 scatterplot(x1)
 title('(n_1,n_2) = (50,40)')
@@ -332,6 +431,39 @@ x1 = [x(:,n11(3)) x(:,n22(3))];
 scatterplot(x1)
 title('(n_1,n_2) = (200,190)')
 xlabel('X[n_1]')
-ylabel('X[n_2]')
+ylabel('X[n_2]'),
 
 
+%% 6.4
+clc
+clf
+clear all
+close all
+
+N = 256;
+K = N;
+w = randn(N,K);
+x=filter(1,[1 -0.9],w);
+
+
+sum = 0;
+sum1 = zeros(1,N);
+for n=2:N
+    for i=1:N
+        product = x(i,n).*x(i,n-1);
+        sum = (sum + product)/N;  
+    end
+    sum1(n) = sum;
+end
+sum1(sum1==0) = []; 
+n=2:N;
+plot(n,sum1)
+xlabel('n')
+ylabel('$$\hat{r}(n,n-1)$$','Interpreter','Latex')
+title('Sample auto-correlation')
+hold on
+ 
+
+rSingle = (x(:,2).*x(:,1))/N;
+n=1:N;
+plot(n,rSingle)
